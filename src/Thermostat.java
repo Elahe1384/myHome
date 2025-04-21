@@ -1,25 +1,24 @@
-public class Light extends Device {
-    private int brightness;
-
-    Light(String name, String protocol1) {
+public class Thermostat extends Device {
+    private int temperature;
+    Thermostat(String name, String protocol1) {
         super(name, protocol1);
-        this.brightness = 50;
+        this.temperature = 20;
     }
 
     @Override
     public boolean setProperty(String property, String value) {
         switch (property) {
             case "status":
-                if(value.equals("on") || value.equals("off")) {
+                if (value.equals("on") || value.equals("off")) {
                     this.status = value;
                     return true;
                 }
                 return false;
-            case "brightness":
+            case "temperature":
                 try {
-                    int brightness = Integer.parseInt(value);
-                    if (brightness >= 0 && brightness <= 100) {
-                        this.brightness = brightness;
+                    int temp = Integer.parseInt(value);
+                    if (temp >= 10 && temp <= 30) {
+                        this.temperature = temp;
                         return true;
                     }
                     return false;
@@ -30,10 +29,8 @@ public class Light extends Device {
                 return false;
         }
     }
-
     @Override
     public String getInfo() {
-        return name + " " + status + " " + brightness + protocol1;
+        return name + " " + status + " " + temperature + "C " + protocol1;
     }
-
 }
